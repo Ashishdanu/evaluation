@@ -1,0 +1,68 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    /* background-color: gray; */
+    margin: auto;
+    background-color: rgb(231, 231, 231);
+}
+
+header h1 {
+    background-color: rgba(153, 30, 30, 0.699);
+    padding: 20px;
+    border-radius: 25px 5px 5px 25px;
+}
+#search {
+    padding: 10px;
+    font-size: 15px;
+    margin: 0;
+    height: 50px;
+}
+#sortbtn {
+    padding: 10px;
+    height: 50px;
+    border-radius: 25px ;
+    background-color: blue;
+    color: white;
+    border-style: none;
+
+}
+#sortbtn:hover {
+    background-color: red;
+}
+
+main {
+    display: flex;
+    margin: auto;
+    flex-wrap: wrap;
+    background-color: rgb(231, 231, 231);
+}
+#folders , #files {
+    padding: 20px;
+    flex:1 ;
+    border: 1px solid rgb(136, 85, 85);
+    cursor: pointer;
+    padding: 12px;
+    border: 1px solid #abcd;
+    margin: 5px ;
+}
+
+#folders:hover, #files:hover {
+    background-color: rgb(222, 252, 222) ;
+}
+
+.folder , .file {
+    padding: 10px;
+    background-color: rgb(165, 113, 45);
+    height: auto;
+}

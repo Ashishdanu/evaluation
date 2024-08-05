@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="./styles.css">
+    <title>file organiser system </title>
+</head>
+<body>
+    <div class="container">
+    <header>
+        <h1>File manager</h1>
+        <input type="text" id="search" placeholder="search files. . .">
+        <button id="sortbtn">search</button>
+    </header>
+    <main>
+        <section id="folders"></section>
+        <section id="files"></section>
+    </main>
+</div>
+    
+</body>
+</html>
+
+<script>
+
+    const filesData= [
+        {name: 'document1.txt', type:'text'},
+        {name: 'document2.txt', type:'text'},
+        {name: 'document3.txt', type:'text'},
+        {name: 'document4.txt', type:'text'},
+        {name: 'document5.txt', type:'text'},
+        {name: 'document6.txt', type:'text'},
+        {name:'report1.docx' , type:'doc'},
+        {name: 'report2.docx', type:'doc'},
+        {name: 'report3.docx', type:'doc'},
+        {name: 'report4.docx', type:'doc'},
+        {name: 'report5.docx', type:'doc'},
+        {name: 'image1.jpg' , type: 'Image'},
+        {name: 'image2.jpg', type: 'Image'},
+        {name: 'image3.jpg', type: 'Image'},
+        {name: 'image4.jpg', type: 'Image'},
+        {name: 'image5.jpg', type: 'Image'},
+        {name: 'image6.jpg', type: 'Image'},
+        {name: 'image7.jpg', type: 'Image'},
+        {name: 'image8.jpg', type: 'Image'},
+        {name: 'image9.jpg', type: 'Image'},
+        {name: 'song1.mp3',type: 'audio'},
+        {name: 'song2.mp3', type: 'audio'},
+        {name: 'song2.mp3', type: 'audio'},
+        {name: 'song3.mp3',type: 'audio'},
+        {name: 'song4.mp3', type: 'audio'},
+        {name: 'song5.mp3', type: 'audio'},
+        {name: 'song6.mp3',type: 'audio'},
+        {name: 'song7.mp3', type: 'audio'},
+        {name: 'song8.mp3', type: 'audio'}
+];
+  
+let currentFiles = [] ;
+let sortorderasc = true ;
+
+// catagorizing giles into folders
+const categorizeFiles = (files) => {
+    return files.reduce((categories , file) => {
+        if ( !categories[file.type]) {
+            categories[file.type] = [] ;
+        }
+        categories[file.type].push(file) ;
+        return categories ;
+    }, {}) ;
+};
+
+// display folders ..
+const displayFolders = (categories) => {
+    const folderSection =document.getElementById('folders');
+    folderSection.innerHTML = '';
+    object.keys(categories).forEach(type => {
+        const folderdiv = document.createElement('div');
+        folderdiv.className = 'folder';
+        folderdiv.textContent = 'type' ;
+        folderdiv.onclick = () => displayFiles(categories[type]);
+        folderSection.appendChild(folderdiv);
+        });
+
+}
+// display files 
+
+const displayFiles = (files) => {
+    currentFiles = files ;
+    const filesselection = document.getElementById('files');
+    filesselection.innerHTML='' ;
+
+    files.forEach(file => {
+        const filediv = document.createElement('div') ;
+        filediv.className = 'file' ;
+        filediv.textContent= ` ${file.name} ~(${file.type})~` ;
+        filesselection.appendChild(filediv);
+    });
+
+};
+
+// search file 
+const searchFiles=(query) => {
+    const filteredFiles =currentFiles.filter(file => 
+        file.name.toLowerCase().includes(query.toLowerCase())
+    );
+    displayFiles(filteredFiles);
+};
+
+
+
+// sorting 
+
+const sortFiles = () => {
+    if(sortorderasc) {
+        currentFiles.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    else {
+        currentFiles.sort((a,b) => b.namelocalCompare(a.name));
+}
+sortorderasc = !sortorderasc ;
+displayFiles(currentFiles);
+};
+
+// initialize the file manager 
+
+const init = () => {
+    const categories = categorizeFiles(filesData);
+    displayFolders(categories);
+
+    document.getElementById('search').addEventListener('input',(e) => {
+        searchFiles(e.target.value) ;
+
+    });
+    document.getElementById('sortbtn').addEventListener('click' ,sortFiles);
+
+};
+document.addEventListener('DOMContentLoaded' ,init);
+
+
+
+</script>
